@@ -1,2 +1,2 @@
 # ProjetEFREI_Javascript
-Faire un jeu de dames trop marrant MAIS PAS TROP mais quand même sympathique
+Faire un jeu de dame

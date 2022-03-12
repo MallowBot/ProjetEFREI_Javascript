@@ -1,5 +1,8 @@
 .body {
   text-align: center;
+  font-family: sans-serif; ;
+  display: flex;
+  flex-direction: column;
 }
 
 #jeu{
@@ -7,18 +10,36 @@
   grid-template-columns: repeat(8, 1fr);
   width: 300px;
   margin: auto;
+  justify-content: center;
 }
 
 .case-w{
-  border: 1px solid black;
+  border: 1px solid #363945;
   height: 70px;
   width: 70px;
-  background-color: white;
+  //background-image: url('https://img2.freepng.fr/20180326/gvq/kisspng-wood-flooring-wood-grain-plank-wood-texture-5ab92a78358412.9809286215220844722192.jpg');
+  border-radius: 3px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .case-b{
-  border: 1px solid black;
+  border: 1px solid #363945;
   height: 70px;
   width: 70px;
-  background-color: #34568b;
+  background-color: #363945;
+  border-radius: 3px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.titre{
+  border: 1px solid lightgray;
+  margin: 40px;
+  border-radius: 10px;
+  position: static;
 }
