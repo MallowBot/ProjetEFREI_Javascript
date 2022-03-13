@@ -3,6 +3,7 @@
   font-family: sans-serif; ;
   display: flex;
   flex-direction: column;
+  background-color: #938a85;
 }
 
 #jeu{
@@ -17,7 +18,7 @@
   border: 1px solid #363945;
   height: 70px;
   width: 70px;
-  //background-image: url('https://img2.freepng.fr/20180326/gvq/kisspng-wood-flooring-wood-grain-plank-wood-texture-5ab92a78358412.9809286215220844722192.jpg');
+  background-color:#dbd8d6 ;
   border-radius: 3px;
   font-size: 12px;
   display: flex;
@@ -38,7 +39,7 @@
 }
 
 .titre{
-  border: 1px solid lightgray;
+  border: 1px solid #443f3c;
   margin: 40px;
   border-radius: 10px;
   position: static;
