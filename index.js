@@ -33,7 +33,4 @@ function clicCell() {
   const indexCell = parseInt(this.dataset.index)
   console.log(indexCell)
   document.getElementById(`${indexCell}`).innerHTML = `<img src="./assets/Pion_Red.png" height="55" width="55">`
-
-
-
 }
