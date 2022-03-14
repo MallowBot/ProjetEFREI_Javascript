@@ -1,6 +1,6 @@
 .body {
   text-align: center;
-  font-family: sans-serif; ;
+  font-family: sans-serif;
   display: flex;
   flex-direction: column;
   background-color: #938a85;
@@ -43,4 +43,19 @@
   margin: 40px;
   border-radius: 10px;
   position: static;
+}
+
+.restart {
+  width: 300px;
+  height: 50px;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+#restart{
+  width: 100px;
+  height: 30px;
 }
