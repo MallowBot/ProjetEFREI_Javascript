@@ -134,7 +134,7 @@ function removeAttribute2() {
 
 function resetBorders() {
   for (let i = 0; i < playerPion.length; i++) {
-      playerPion[i].style.border = "2px solid white";
+      playerPion[i].style.border = "1px solid white";
   }
   resetToggledProperties();
   getToggledPion();
@@ -156,7 +156,7 @@ function resetToggledProperties() {
 
 function getToggledPion() {
   toggledPion.pieceId = parseInt(event.target.id);
-  toggledPion.toggledPionTableId = findPiece(toggledPion.pieceId);
+  toggledPion.toggledPionTableId = getPionId(toggledPion.pieceId);
   isPieceKing();
 }
 
