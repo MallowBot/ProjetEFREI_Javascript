@@ -8,3 +8,4 @@
 Création d'un jeu de dame fonctionnel en Javascript.
 
 ## 🎈 Construction
+knznkflzel
