@@ -18,7 +18,6 @@ const tour = document.querySelector(".h-3");
 //const tourB = document.querySelector(".h-3B");
 // Messages
 
-
 // Valeurs:
 let playerActiv = "Rouge"
 let gameActive = true;
@@ -35,9 +34,9 @@ const allCases = document.querySelectorAll("td")
 
 
 let toggledPion = {
-  pionId : -1, 
-  toggledPionTableId:-1,
-  king: false,
+  pionId: -1,
+  toggledPionTableId: -1,
+  isking: false,
   seventhSpace: false,
   ninthSpace: false,
   fourteenthSpace: false,
@@ -45,8 +44,8 @@ let toggledPion = {
   minusSeventhSpace: false,
   minusNinthSpace: false,
   minusFourteenthSpace: false,
-  minusEighteenthSpace: false
-}
+  minusEighteenthSpace: false,
+};
 
 // 0:vide /1:Pion red  /2:Pion black /3:king red /4:king black
 let vide = 0;
@@ -69,7 +68,7 @@ let kingBlack = 4;
 //   console.log(indexCellB)
 //   return indexCellB;
 // }
-   
+
 // function clicCellW() {
 //   let indexCellW = parseInt(this.id)
 //   console.log(indexCellW)
@@ -80,30 +79,30 @@ let kingBlack = 4;
 //   else {
 //     document.getElementById(`${indexCellW}`).innerHTML = `<p class="Redpion" data-index=${indexCellB}><img src="./assets/Pion_Red.png" height="55" width="55">`
 //   }
-  
+
 // }
 
-
-function pionEventListener() { 
+function pionEventListener() {
   if (playerTurn) {
     for (let i = 0; i < numberPionRed.length; i++) {
-        numberPionRed[i].addEventListener("click", togglePlayerPieces);
+      numberPionRed[i].addEventListener("click", togglePlayerPieces);
+
     }
-} else {
+  } else {
     for (let i = 0; i < numberPionBlack.length; i++) {
-        numberPionBlack[i].addEventListener("click", togglePlayerPieces);
+      numberPionBlack[i].addEventListener("click", togglePlayerPieces);
     }
-}
+  }
 }
 
 function togglePlayerPieces() {
   if (playerTurn) {
-      playerPion = numberPionRed;
+    playerPion = numberPionRed;
   } else {
-      playerPion = numberPionBlack;
+    playerPion = numberPionBlack;
   }
   removeAttribute1();
- 
+
   resetBorders();
 }
 
@@ -234,8 +233,8 @@ function checkPion() {
           toggledPion.fourteenthSpace = false;
           toggledPion.eighteenthSpace = false;
       }
-      givePieceBorder(); 
-        
+      givePieceBorder();
+
   }
 }
 
@@ -251,28 +250,52 @@ function givePieceBorder() {
 
 function CellClick() {
   if (toggledPion.seventhSpace) {
-      allCases[toggledPion.toggledPionTableId + 7].setAttribute("onclick", "makeMove(7)");
+    allCases[toggledPion.toggledPionTableId + 7].setAttribute(
+      "onclick",
+      "makeMove(7)"
+    );
   }
   if (toggledPion.ninthSpace) {
-      allCases[toggledPion.toggledPionTableId + 9].setAttribute("onclick", "makeMove(9)");
+    allCases[toggledPion.toggledPionTableId + 9].setAttribute(
+      "onclick",
+      "makeMove(9)"
+    );
   }
   if (toggledPion.fourteenthSpace) {
-      allCases[toggledPion.toggledPionTableId + 14].setAttribute("onclick", "makeMove(14)");
+    allCases[toggledPion.toggledPionTableId + 14].setAttribute(
+      "onclick",
+      "makeMove(14)"
+    );
   }
   if (toggledPion.eighteenthSpace) {
-      allCases[toggledPion.toggledPionTableId + 18].setAttribute("onclick", "makeMove(18)");
+    allCases[toggledPion.toggledPionTableId + 18].setAttribute(
+      "onclick",
+      "makeMove(18)"
+    );
   }
   if (toggledPion.minusSeventhSpace) {
-      allCases[toggledPion.toggledPionTableId - 7].setAttribute("onclick", "makeMove(-7)");
+    allCases[toggledPion.toggledPionTableId - 7].setAttribute(
+      "onclick",
+      "makeMove(-7)"
+    );
   }
   if (toggledPion.minusNinthSpace) {
-      allCases[toggledPion.toggledPionTableId - 9].setAttribute("onclick", "makeMove(-9)");
+    allCases[toggledPion.toggledPionTableId - 9].setAttribute(
+      "onclick",
+      "makeMove(-9)"
+    );
   }
   if (toggledPion.minusFourteenthSpace) {
-      allCases[toggledPion.toggledPionTableId - 14].setAttribute("onclick", "makeMove(-14)");
+    allCases[toggledPion.toggledPionTableId - 14].setAttribute(
+      "onclick",
+      "makeMove(-14)"
+    );
   }
   if (toggledPion.minusEighteenthSpace) {
-      allCases[toggledPion.toggledPionTableId - 18].setAttribute("onclick", "makeMove(-18)");
+    allCases[toggledPion.toggledPionTableId - 18].setAttribute(
+      "onclick",
+      "makeMove(-18)"
+    );
   }
 }
 
@@ -297,11 +320,11 @@ function makeMove(number) {
       }
   }
 
-  let indexOfPiece = toggledPion.toggledPionTableId
+  let indexOfPiece = toggledPion.toggledPionTableId;
   if (number === 14 || number === -14 || number === 18 || number === -18) {
-      changeData(indexOfPiece, indexOfPiece + number, indexOfPiece + number / 2);
+    changeData(indexOfPiece, indexOfPiece + number, indexOfPiece + number / 2);
   } else {
-      changeData(indexOfPiece, indexOfPiece + number);
+    changeData(indexOfPiece, indexOfPiece + number);
   }
 }
 
@@ -348,17 +371,17 @@ function changePlayer() {
       playerTurn = false
       playerActiv = "NOIR";
       const tourPlayerB = () => `${playerActiv}`
- tour.innerHTML = tourPlayerB()    
+ tour.innerHTML = tourPlayerB()
     }
    else {
     playerTurn = true
     playerActiv = "ROUGE";
     const tourPlayerR = () => `${playerActiv}`
- tour.innerHTML = tourPlayerR()  
+ tour.innerHTML = tourPlayerR()
   }
 
  //const gagne = () => `Le joueur ${playerActiv} a gagné`
- 
+
 
   pionEventListener();
 }
@@ -370,7 +393,7 @@ pionEventListener();
 
 // document.querySelectorAll(".case-w").forEach(cell => cell.addEventListener("click",hideDot))
 // function hideDot() {
-//   const indexCellHideB = parseInt(this.dataset.index) 
+//   const indexCellHideB = parseInt(this.dataset.index)
 //   document.getElementById(`${indexCellHideB}`).innerHTML = ""
 // }
 
@@ -393,4 +416,3 @@ pionEventListener();
 //     });
 //   }
 // }
-
