@@ -1,41 +1,82 @@
+* {
+  margin: 0;
+}
+
 .body {
   text-align: center;
   font-family: sans-serif;
   display: flex;
   flex-direction: column;
-  background-color: #938a85;
+  background-color: #a09998;
+  height: 100vh;
+  width: 100vw;
 }
 
 #jeu{
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(8, 1fr);
   width: 300px;
   margin: auto;
-  justify-content: center;
+  justify-content: center; */
+  display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 650px;
 }
 
-.case-w{
+.empty {
   border: 1px solid #363945;
   height: 70px;
   width: 70px;
   background-color:#dbd8d6 ;
   border-radius: 3px;
   font-size: 12px;
+  /* text-align: center;
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
 
-.case-b{
+td{
   border: 1px solid #363945;
   height: 70px;
   width: 70px;
   background-color: #363945;
   border-radius: 3px;
   font-size: 12px;
-  display: flex;
+  /* display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  text-align: center; */
+}
+
+p {
+  display: inline-block;
+}
+
+span{
+  display: inline-block;
+}
+
+.RedPion{
+  width: 25px;
+    height: 25px;
+    padding: 12px;
+    background-color: #7a1a22;
+    border: 1px solid #ffffff;
+    border-radius: 50px;
+}
+
+.BlackPion {
+  width: 25px;
+    height: 25px;
+    padding: 12px;
+    background-color: #020b1a;
+    border: 1px solid #ffffff;
+    border-radius: 50px;
 }
 
 .titre{
@@ -55,7 +96,25 @@
   margin: 0 auto;
 }
 
+.king.RedPion {
+  background-color: #ff944d;
+}
+
+.king.BlackPion {
+  background-color: #0c5379;
+}
+
 #restart{
   width: 100px;
   height: 30px;
+}
+
+.h-3 {
+  font-size: 1.5rem;
+  margin: 1rem;
+}
+
+.texteJoueur {
+  font-size: 1.5rem;
+  margin: 1rem;
 }

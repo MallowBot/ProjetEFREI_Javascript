@@ -1,25 +1,38 @@
-const tour = document.querySelector("h3");
+const playTable = [
+    null,0,null,1,null,2,null,3,
+    4, null, 5, null, 6, null, 7, null,
+    null, 8, null, 9, null, 10, null, 11,
+    null,null,null,null,null, null, null, null,
+    null,null,null,null,null,null,null,null,
+    12,null,13,null,14,null,15,null,
+    null,16,null,17,null,18,null,19,
+    20,null,21,null,22,null,23,null
+]
+
+let getPionId = function (pionId){
+    let parse = parseInt(pionId);
+    return playTable.indexOf(parse);
+  }
+
+const tour = document.querySelector(".h-3");
+//const tourB = document.querySelector(".h-3B");
 // Messages
 
 
 // Valeurs:
+let playerActiv = "Rouge"
 let gameActive = true;
-let playerActiv = "Rouge";
 let playerTurn = true;
 let playerPion;
 let scoreRed = 12;
 let scoreBlack = 12;
 let numberPionRed = document.querySelectorAll("p");
-let numberPionBlack = document.querySelectorAll("p1")
-const allCases = document.querySelectorAll(".case-w")
+let numberPionBlack = document.querySelectorAll("span")
+const allCases = document.querySelectorAll("td")
 // allCases.forEach(cell => cell.addEventListener("click",clicCellW))
 // numberPionRed.forEach(pionR => pionR.addEventListener("click",clicCellR))
 // numberPionBlack.forEach(pionB => pionB.addEventListener("click",clicCellB))
 
-let getPionId = function (pionId){
-  let parse = parseInt(pionId);
-  return playTable.indexOf(parse);
-}
 
 let toggledPion = {
   pionId : -1, 
@@ -41,22 +54,6 @@ let pionBlack = 1;
 let pionRed = 2;
 let kingRed = 3;
 let kingBlack = 4;
-
-let playTable = [
-  0,null,1,null,2,null,3,null,
-  null,4,null,5,null,6,null,7,
-  8,null,9,null,10,null,11,null,
-  null,null,null,null,null,null,null,null,
-  null,null,null,null,null,null,null,null,
-  null,12,null,13,null,14,null,15,
-  16,null,17,null,18,null,19,null,
-  null,20,null,21,null,22,null,23,
-]
-
-
-const gagne = () => `Le joueur ${playerActiv} a gagné`
-const tourPlayer = () => `C'est au tour du joueur ${playerActiv}`
-tour.innerHTML = tourPlayer()
 
 
 // let indexCellR = 0
@@ -106,44 +103,30 @@ function togglePlayerPieces() {
       playerPion = numberPionBlack;
   }
   removeAttribute1();
-  removeAttribute2();
+ 
   resetBorders();
 }
 
 //nombre de pieces restante pour chaque joueur
-function numberPlayerPion() {
-  if (playerTurn) {
-    playerPion = numberPionRed;
-  }
-  else {
-    playerPion = numberPionBlack
-  }
-}
 
 function removeAttribute1() {
-  for (let i = 0; i < numberPionRed.length; i++) {
-      numberPionRed[i].removeAttribute("onclick");
+  for (let i = 0; i < allCases.length; i++) {
+    allCases[i].removeAttribute("onclick");
   }
 }
-function removeAttribute2() {
-  for (let i = 0; i < numberPionBlack.length; i++) {
-      numberPionBlack[i].removeAttribute("onclick");
-  }
-}
-
 
 function resetBorders() {
   for (let i = 0; i < playerPion.length; i++) {
       playerPion[i].style.border = "1px solid white";
   }
-  resetToggledProperties();
-  getToggledPion();
+resetToggledProperties();
+getToggledPion();
 }
 
 function resetToggledProperties() {
-  toggledPion.pieceId = -1;
-  toggledPion.pieceId = -1;
-  toggledPion.isKing = false;
+  toggledPion.pionId = -1;
+  toggledPion.pionId = -1;
+  toggledPion.king = false;
   toggledPion.seventhSpace = false;
   toggledPion.ninthSpace = false;
   toggledPion.fourteenthSpace = false;
@@ -155,81 +138,81 @@ function resetToggledProperties() {
 }
 
 function getToggledPion() {
-  toggledPion.pieceId = parseInt(event.target.id);
-  toggledPion.toggledPionTableId = getPionId(toggledPion.pieceId);
+  toggledPion.pionId = parseInt(event.target.id);
+  toggledPion.toggledPionTableId = getPionId(toggledPion.pionId);
   isPieceKing();
 }
 
 function isPieceKing() {
-  if (document.getElementById(toggledPion.pieceId).classList.contains("king")) {
-      toggledPion.isKing = true;
+  if (document.getElementById(toggledPion.pionId).classList.contains("king")) {
+      toggledPion.king = true;
   } else {
-      toggledPion.isKing = false;
+      toggledPion.king = false;
   }
   getMove();
 }
 
-function getMove() {
-  if (board[toggledPion.toggledPionTableId + 7] === null &&
-      allCases[toggledPion.toggledPionTableId + 7].classList.contains("noPieceHere") !== true) {
+function getMove() { //Determine les cases auxquelles le pion peut accéder en calculant le nombre de case la séparant des cases autorisées
+  if (playTable[toggledPion.toggledPionTableId + 7] === null &&
+      allCases[toggledPion.toggledPionTableId + 7].classList.contains("empty") !== true) {
       toggledPion.seventhSpace = true;
   }
-  if (board[toggledPion.toggledPionTableId + 9] === null &&
-      allCases[toggledPion.toggledPionTableId + 9].classList.contains("noPieceHere") !== true) {
+  if (playTable[toggledPion.toggledPionTableId + 9] === null &&
+      allCases[toggledPion.toggledPionTableId + 9].classList.contains("empty") !== true) {
       toggledPion.ninthSpace = true;
   }
-  if (board[toggledPion.toggledPionTableId - 7] === null &&
-      allCases[toggledPion.toggledPionTableId - 7].classList.contains("noPieceHere") !== true) {
+  if (playTable[toggledPion.toggledPionTableId - 7] === null &&
+      allCases[toggledPion.toggledPionTableId - 7].classList.contains("empty") !== true) {
       toggledPion.minusSeventhSpace = true;
   }
-  if (board[toggledPion.toggledPionTableId - 9] === null &&
-      allCases[toggledPion.toggledPionTableId - 9].classList.contains("noPieceHere") !== true) {
+  if (playTable[toggledPion.toggledPionTableId - 9] === null &&
+      allCases[toggledPion.toggledPionTableId - 9].classList.contains("empty") !== true) {
       toggledPion.minusNinthSpace = true;
   }
   checkJumpMove();
 }
 
-function checkJumpMove() {
+function checkJumpMove() { //Pareil qu'au dessus mais lorsque le pion mange un autre (calcul du nombre de cases pour le déplacement)
   if (playerTurn) {
-      if (board[toggledPion.toggledPionTableId + 14] === null
-      && allCases[toggledPion.toggledPionTableId + 14].classList.contains("noPieceHere") !== true
-      && board[toggledPion.toggledPionTableId + 7] >= 12) {
+      if (playTable[toggledPion.toggledPionTableId + 14] === null
+      && allCases[toggledPion.toggledPionTableId + 14].classList.contains("empty") !== true
+      && playTable[toggledPion.toggledPionTableId + 7] >= 12) {
           toggledPion.fourteenthSpace = true;
       }
-      if (board[toggledPion.toggledPionTableId + 18] === null
-      && allCases[toggledPion.toggledPionTableId + 18].classList.contains("noPieceHere") !== true
-      && board[toggledPion.toggledPionTableId + 9] >= 12) {
+      if (playTable[toggledPion.toggledPionTableId + 18] === null
+      && allCases[toggledPion.toggledPionTableId + 18].classList.contains("empty") !== true
+      && playTable[toggledPion.toggledPionTableId + 9] >= 12) {
           toggledPion.eighteenthSpace = true;
       }
-      if (board[toggledPion.toggledPionTableId - 14] === null
-      && allCases[toggledPion.toggledPionTableId - 14].classList.contains("noPieceHere") !== true
-      && board[toggledPion.toggledPionTableId - 7] >= 12) {
+      if (playTable[toggledPion.toggledPionTableId - 14] === null
+      && allCases[toggledPion.toggledPionTableId - 14].classList.contains("empty") !== true
+      && playTable[toggledPion.toggledPionTableId - 7] >= 12) {
           toggledPion.minusFourteenthSpace = true;
       }
-      if (board[toggledPion.toggledPionTableId - 18] === null
-      && allCases[toggledPion.toggledPionTableId - 18].classList.contains("noPieceHere") !== true
-      && board[toggledPion.toggledPionTableId - 9] >= 12) {
+      if (playTable[toggledPion.toggledPionTableId - 18] === null
+      && allCases[toggledPion.toggledPionTableId - 18].classList.contains("empty") !== true
+      && playTable[toggledPion.toggledPionTableId - 9] >= 12) {
           toggledPion.minusEighteenthSpace = true;
       }
   } else {
-      if (board[toggledPion.toggledPionTableId + 14] === null
-      && allCases[toggledPion.toggledPionTableId + 14].classList.contains("noPieceHere") !== true
-      && board[toggledPion.toggledPionTableId + 7] < 12 && board[toggledPion.toggledPionTableId + 7] !== null) {
+      if (playTable[toggledPion.toggledPionTableId + 14] === null
+      && allCases[toggledPion.toggledPionTableId + 14].classList.contains("empty") !== true
+      && playTable[toggledPion.toggledPionTableId + 7] < 12 && playTable[toggledPion.toggledPionTableId + 7] !== null) {
           toggledPion.fourteenthSpace = true;
       }
-      if (board[toggledPion.toggledPionTableId + 18] === null
-      && allCases[toggledPion.toggledPionTableId + 18].classList.contains("noPieceHere") !== true
-      && board[toggledPion.toggledPionTableId + 9] < 12 && board[toggledPion.toggledPionTableId + 9] !== null) {
+      if (playTable[toggledPion.toggledPionTableId + 18] === null
+      && allCases[toggledPion.toggledPionTableId + 18].classList.contains("empty") !== true
+      && playTable[toggledPion.toggledPionTableId + 9] < 12 && playTable[toggledPion.toggledPionTableId + 9] !== null) {
           toggledPion.eighteenthSpace = true;
       }
-      if (board[toggledPion.toggledPionTableId - 14] === null && allCases[toggledPion.toggledPionTableId - 14].classList.contains("noPieceHere") !== true
-      && board[toggledPion.toggledPionTableId - 7] < 12
-      && board[toggledPion.toggledPionTableId - 7] !== null) {
+      if (playTable[toggledPion.toggledPionTableId - 14] === null && allCases[toggledPion.toggledPionTableId - 14].classList.contains("empty") !== true
+      && playTable[toggledPion.toggledPionTableId - 7] < 12
+      && playTable[toggledPion.toggledPionTableId - 7] !== null) {
           toggledPion.minusFourteenthSpace = true;
       }
-      if (board[toggledPion.toggledPionTableId - 18] === null && allCases[toggledPion.toggledPionTableId - 18].classList.contains("noPieceHere") !== true
-      && board[toggledPion.toggledPionTableId - 9] < 12
-      && board[toggledPion.toggledPionTableId - 9] !== null) {
+      if (playTable[toggledPion.toggledPionTableId - 18] === null && allCases[toggledPion.toggledPionTableId - 18].classList.contains("empty") !== true
+      && playTable[toggledPion.toggledPionTableId - 9] < 12
+      && playTable[toggledPion.toggledPionTableId - 9] !== null) {
           toggledPion.minusEighteenthSpace = true;
       }
   }
@@ -237,10 +220,10 @@ function checkJumpMove() {
 }
 
 function checkPion() {
-  if (toggledPion.isKing) {
+  if (toggledPion.king) {
       givePieceBorder();
   } else {
-      if (turn) {
+      if (playerTurn) {
           toggledPion.minusSeventhSpace = false;
           toggledPion.minusNinthSpace = false;
           toggledPion.minusFourteenthSpace = false;
@@ -251,14 +234,15 @@ function checkPion() {
           toggledPion.fourteenthSpace = false;
           toggledPion.eighteenthSpace = false;
       }
-      givePieceBorder();
+      givePieceBorder(); 
+        
   }
 }
 
 function givePieceBorder() {
   if (toggledPion.seventhSpace || toggledPion.ninthSpace || toggledPion.fourteenthSpace || toggledPion.eighteenthSpace
   || toggledPion.minusSeventhSpace || toggledPion.minusNinthSpace || toggledPion.minusFourteenthSpace || toggledPion.minusEighteenthSpace) {
-      document.getElementById(toggledPion.pieceId).style.border = "3px solid orange";
+      document.getElementById(toggledPion.pionId).style.border = "2px solid #fa7a35";
       CellClick();
   } else {
       return;
@@ -293,23 +277,23 @@ function CellClick() {
 }
 
 function makeMove(number) {
-  document.getElementById(toggledPion.pieceId).remove();
+  document.getElementById(toggledPion.pionId).remove();
   allCases[toggledPion.toggledPionTableId].innerHTML = "";
   if (playerTurn) {
-      if (toggledPion.isKing) {
-          allCases[toggledPion.toggledPionTableId + number].innerHTML = `<p class="red-piece king" id="${toggledPion.pieceId}"></p>`;
+      if (toggledPion.king) {
+          allCases[toggledPion.toggledPionTableId + number].innerHTML = `<p class="RedPion king" id="${toggledPion.pionId}"></p>`;
           numberPionRed = document.querySelectorAll("p");
       } else {
-          allCases[toggledPion.toggledPionTableId + number].innerHTML = `<p class="red-piece" id="${toggledPion.pieceId}"></p>`;
+          allCases[toggledPion.toggledPionTableId + number].innerHTML = `<p class="RedPion" id="${toggledPion.pionId}"></p>`;
           numberPionRed = document.querySelectorAll("p");
       }
   } else {
-      if (toggledPion.isKing) {
-          allCases[toggledPion.toggledPionTableId + number].innerHTML = `<p2 class="black-piece king" id="${toggledPion.pieceId}"></p2>`;
-          numberPionBlack = document.querySelectorAll("p2");
+      if (toggledPion.king) {
+          allCases[toggledPion.toggledPionTableId + number].innerHTML = `<span class="BlackPion king" id="${toggledPion.pionId}"></span>`;
+          numberPionBlack = document.querySelectorAll("span");
       } else {
-          allCases[toggledPion.toggledPionTableId + number].innerHTML = `<p2 class="black-piece" id="${toggledPion.pieceId}"></p2>`;
-          numberPionBlack = document.querySelectorAll("p2");
+          allCases[toggledPion.toggledPionTableId + number].innerHTML = `<span class="BlackPion" id="${toggledPion.pionId}"></span>`;
+          numberPionBlack = document.querySelectorAll("span");
       }
   }
 
@@ -321,71 +305,74 @@ function makeMove(number) {
   }
 }
 
-function changeData(indexOfBoardPiece, modifiedIndex, removePiece) {
-  board[indexOfBoardPiece] = null;
-  board[modifiedIndex] = parseInt(toggledPion.pieceId);
-  if (turn && toggledPion.pieceId < 12 && modifiedIndex >= 57) {
-      document.getElementById(toggledPion.pieceId).classList.add("king")
+function changeData(indexOfplayTablePiece, modifiedIndex, removePiece) {
+  playTable[indexOfplayTablePiece] = null;
+  playTable[modifiedIndex] = parseInt(toggledPion.pionId);
+  if (playerTurn && toggledPion.pionId < 12 && modifiedIndex >= 57) {
+      document.getElementById(toggledPion.pionId).classList.add("king")
   }
-  if (turn === false && toggledPion.pieceId >= 12 && modifiedIndex <= 7) {
-      document.getElementById(toggledPion.pieceId).classList.add("king");
+  if (playerTurn === false && toggledPion.pionId >= 12 && modifiedIndex <= 7) {
+      document.getElementById(toggledPion.pionId).classList.add("king");
   }
   if (removePiece) {
-      board[removePiece] = null;
-      if (turn && toggledPion.pieceId < 12) {
-          cells[removePiece].innerHTML = "";
-          blackScore--
+      playTable[removePiece] = null;
+      if (playerTurn && toggledPion.pionId < 12) {
+          allCases[removePiece].innerHTML = "";
+          scoreBlack--
       }
-      if (turn === false && toggledPion.pieceId >= 12) {
-          cells[removePiece].innerHTML = "";
-          redScore--
+      if (playerTurn === false && toggledPion.pionId >= 12) {
+          allCases[removePiece].innerHTML = "";
+          scoreRed--
       }
   }
-  resettoggledPionProperties();
-  removeCellonclick();
+  resetToggledProperties();
+  CellClick();
   removeEventListeners();
 }
 
 function removeEventListeners() {
   if (playerTurn) {
       for (let i = 0; i < numberPionRed.length; i++) {
-          numberPionRed[i].removeEventListener("click", getPlayerPieces);
+          numberPionRed[i].removeEventListener("click", togglePlayerPieces);
       }
   } else {
       for (let i = 0; i < numberPionBlack.length; i++) {
-          numberPionBlack[i].removeEventListener("click", getPlayerPieces);
+          numberPionBlack[i].removeEventListener("click", togglePlayerPieces);
       }
   }
   changePlayer();
 }
 
-
 function changePlayer() {
   if (playerTurn) {
-      turn = false;
-      for (let i = 0; i < redTurnText.length; i++) {
-          redTurnText[i].style.color = "lightGrey";
-          blackTurntext[i].style.color = "black";
-      }
-  } else {
-      turn = true;
-      for (let i = 0; i < blackTurntext.length; i++) {
-          blackTurntext[i].style.color = "lightGrey";
-          redTurnText[i].style.color = "black";
-      }
+      playerTurn = false
+      playerActiv = "NOIR";
+      const tourPlayerB = () => `${playerActiv}`
+ tour.innerHTML = tourPlayerB()    
+    }
+   else {
+    playerTurn = true
+    playerActiv = "ROUGE";
+    const tourPlayerR = () => `${playerActiv}`
+ tour.innerHTML = tourPlayerR()  
   }
+
+ //const gagne = () => `Le joueur ${playerActiv} a gagné`
+ 
+
   pionEventListener();
 }
 
 pionEventListener();
+
+
+
 
 // document.querySelectorAll(".case-w").forEach(cell => cell.addEventListener("click",hideDot))
 // function hideDot() {
 //   const indexCellHideB = parseInt(this.dataset.index) 
 //   document.getElementById(`${indexCellHideB}`).innerHTML = ""
 // }
-
-
 
 // Restart
 // const indice =1
